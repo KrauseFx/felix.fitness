@@ -1,0 +1,90 @@
+<html>
+  <head>
+    <title>felix.fitness</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <div id='content'>
+      <h1>felix.fitness</h1>
+      <p>Long term, I plan for this page to be my fitness dashboard. For now, this page is mostly informational</p>
+      <p>In particular, I get asked quite often on my opinion on X, on my approach of Y, and how I do Z. This page aims to summarize the resources I use and follow</p>
+
+      <div id="currentNumbers">
+        <div id="currentWeight"></div>
+        <div id="currentSleep"></div>
+        <div id="lastGymVisit"></div>
+        <div id="dexaScan"></div>
+        <div id="macrosCarbs"></div>
+        <div id="macrosProtein"></div>
+        <div id="macrosFat"></div>
+      </div>
+
+      <div style="text-align: center">
+        <img src="/assets/graph.png" width="500" />
+        <br />
+        <img src="/assets/sheet.png" width="500" />
+        <br />
+      </div>
+
+      <h3>My approach</h3>
+      <ul>
+        <li>I eat everything I want, it's all about the total amount and the distribution of macros. I try to have about 75% of my meals to come from healthy sources</li>
+        <li>I basically follow the If It Fits Your Macros approach, meaning you can eat basically anything, as long as you reach the goals for number of grams of carbs, protein and fat</li>
+        <li>I aim to go to the gym every day. Realistically there is one day a week where you can't make it due to time constraints. By going every day by default, it feels less taxing, as it just becomes part of your daily routine</li>
+        <li>In 2018 I tracked macros for about 75% of the days, nowadays it's more like 25% of the days</li>
+        <li>The only thing people see all the time is the face. As soon as I gain fat, it's immediately visible on my jaw line. That's why I only do slow/lean bulks where I minimize the fat gain while gaining muscle</li>
+        <li>Supplements (including protein powder) are unnecessary, besides vitamins I don't take any (<a href="https://rippedbody.com/complete-diet-nutrition-set-up-guide/#supplements" target="_blank">Source</a>)</li>
+        <li>I never want fitness to get into the way of my life, meaning if I'm invited by friends, it doens't matter if they're going to a restaurant that only serves X, or if we're going out drinking. I don't believe in binary diets</li>
+        <li>I use MyFitnessPal to track my food, it's a terrible app for many reasons, but it still has the best data out there. I haven't found a good alternative yet</li>
+        <li>There is lots of misinformation around fitness, make sure to find trustworthy sources for your decisions to avoid making unnecessary sacrifices, some examples of myths:</li>
+        <ul>
+          <li>Carbs are bad</li>
+          <li>Meal timing is important, I need a shake after my workout</li>
+          <li>BCAA drinks</li>
+          <li>Cheat days</li>
+        </ul>
+        <li><b>Tracking progress</b></li>
+        <ul>
+          <li>I measure body fat with my personal trainer about twice a month (when I'm in NYC)</li>
+          <li>I do a <a href="https://en.wikipedia.org/wiki/Dual-energy_X-ray_absorptiometry" target="_blank">DEXA scan</a> 4 times a year (as it costs about $80 each time)</li>
+          <li>I track my weight every day in the morning (unless I drank alcohol the night before) and use <a href="http://www.weightgrapher.com" target="_blank">weightgrapher.com</a> (no HTTPs website, make sure to use an auto-generated password) to get the 10d average weight, as well as 1w and 1m weight change</li>
+        </ul>
+      </ul>
+
+      <h3>RippedBody.com</h3>
+      <p>A great resources for all bodybuilding related content, they include sources with their claims</p>
+      <ul>
+        <li><a href="https://rippedbody.com/cut-or-bulk/" target="_blank">Should I cut or bulk</a>: Unless you're really lean already, likely you'll want to cut</li>
+        <li><a href="https://rippedbody.com/complete-diet-nutrition-set-up-guide/" target="_blank">Setting up your macros</a>: This is how to get started after deciding if you want to cut or bulk</li>
+        <li><a href="https://rippedbody.com/how-to-count-macros/" target="_blank">How to count macros</a>: Practical guide on how to best track day to day</li>
+        <li><a href="https://rippedbody.com/alcohol/" target="_blank">How to track alcohol</a>: Be smart about how to track alcohol and consider it the day before and after of drinking</li>
+      </ul>
+
+      <h3>examine.com</h3>
+      <p>Go-to website for everything supplements, that makes money by selling premium content, instead of being sponsored by supplement companies</p>
+      <ul>
+        <li><a href="https://examine.com/supplements/branched-chain-amino-acids/" target="_blank">BCAA</a></li>
+        <li><a href="https://examine.com/supplements/creatine/" target="_blank">Creatine</a></li>
+        <li><a href="https://examine.com/supplements/fish-oil/" target="_blank">Fish Oil</a></li>
+      </ul>
+
+      <script type="text/javascript">
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", "https://whereisfelixtoday-backend.now.sh/api.json", false);
+        xmlHttp.send(null);
+        let data = JSON.parse(xmlHttp.responseText);
+        console.log(data)
+
+        document.getElementById("currentWeight").innerHTML = data["otherFxLifeData"]["weight"]["value"] + "lbs (" + Math.round(data["otherFxLifeData"]["weight"]["value"] * 0.453592 * 10) / 10.0 + "kg)"
+        document.getElementById("currentSleep").innerHTML = data["otherFxLifeData"]["sleepDuration"]["value"] + " hours"
+        document.getElementById("lastGymVisit").innerHTML = data["otherFxLifeData"]["gym"]["time"] + " hours"
+        document.getElementById("dexaScan").innerHTML = data["otherFxLifeData"]["dexaFatPercent"]["value"] + "%"
+        document.getElementById("macrosCarbs").innerHTML = data["otherFxLifeData"]["macrosCarbs"]["value"]
+        document.getElementById("macrosProtein").innerHTML = data["otherFxLifeData"]["macrosProtein"]["value"]
+        document.getElementById("macrosFat").innerHTML = data["otherFxLifeData"]["macrosFat"]["value"]
+      </script>
+    </div>
+  </body>
+</html>
